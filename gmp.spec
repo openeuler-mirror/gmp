@@ -1,12 +1,9 @@
 Name: gmp
 Version: 6.1.2
-Release: 9
+Release: 10
 Epoch: 1
 URL: https://gmplib.org
 Source0: https://gmplib.org/download/gmp/gmp-%{version}.tar.bz2
-Source1: gmp.h
-Source2: gmp-mparam.h
-Patch0: gmp-6.0.0-debuginfo.patch
 License: LGPLv3 and GPLv2
 BuildRequires: autoconf automake libtool gcc gcc-c++ git perl-Carp
 Summary: A GNU multiple precision arithmetic library
@@ -70,11 +67,6 @@ basearch=%{_arch}
 basearch=i386
 %endif
 
-mv %{buildroot}/%{_includedir}/gmp.h %{buildroot}/%{_includedir}/gmp-${basearch}.h
-install -m644 %{SOURCE1} %{buildroot}/%{_includedir}/gmp.h
-mv %{buildroot}/%{_includedir}/gmp-mparam.h %{buildroot}/%{_includedir}/gmp-mparam-${basearch}.h
-install -m644 %{SOURCE2} %{buildroot}/%{_includedir}/gmp-mparam.h
-
 %check
 export LD_LIBRARY_PATH=`pwd`/.libs
 make %{?_smp_mflags} check
@@ -103,5 +95,8 @@ make %{?_smp_mflags} check
 %{_libdir}/libgmpxx.so.*
 
 %changelog
+* Fri Jan 10 2020 yuxiangyang <yuxiangyang4@huawei.com> - 1:6.1.2-10
+- Delete unuseful files
+
 * Mon Aug 12 2019 openEuler Buildteam <buildteam@openeuler.org> - 1:6.1.2-9
 - Package init
