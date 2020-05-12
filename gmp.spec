@@ -1,6 +1,6 @@
 Name: gmp
-Version: 6.1.2
-Release: 10
+Version: 6.2.0
+Release: 1
 Epoch: 1
 URL: https://gmplib.org
 Source0: https://gmplib.org/download/gmp/gmp-%{version}.tar.bz2
@@ -82,6 +82,7 @@ make %{?_smp_mflags} check
 %license COPYING COPYING.LESSERv3 COPYINGv2 COPYINGv3
 %doc NEWS README
 %{_libdir}/libgmp.so.*
+%{_libdir}/pkgconfig/gmp.pc
 
 %files devel
 %{_libdir}/libgmpxx.so
@@ -93,8 +94,12 @@ make %{?_smp_mflags} check
 
 %files c++
 %{_libdir}/libgmpxx.so.*
+%{_libdir}/pkgconfig/gmpxx.pc
 
 %changelog
+* Fri Apr 17 2020 yuxiangyang <yuxiangyang4@huawei.com> - 1:6.2.0-1
+- Upgrade to 6.2.0
+
 * Fri Jan 10 2020 yuxiangyang <yuxiangyang4@huawei.com> - 1:6.1.2-10
 - Delete unuseful files
 
