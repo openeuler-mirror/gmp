@@ -1,5 +1,5 @@
 Name: gmp
-Version: 6.2.0
+Version: 6.2.1
 Release: 1
 Epoch: 1
 URL: https://gmplib.org
@@ -97,6 +97,9 @@ make %{?_smp_mflags} check
 %{_libdir}/pkgconfig/gmpxx.pc
 
 %changelog
+* Sat Jan 30 2021 xinghe <xinghe1@huawei.com> - 1:6.2.1-1
+- Upgrade to 6.2.1
+
 * Thu Jul 23 2020 jinzhimin <jinzhimin2@huawei.com> - 1:6.2.0-1
 - Upgrade to 6.2.0
 
