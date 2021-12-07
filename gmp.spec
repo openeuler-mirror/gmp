@@ -1,12 +1,14 @@
 Name: gmp
 Version: 6.2.1
-Release: 2
+Release: 3
 Epoch: 1
 URL: https://gmplib.org
 Source0: https://gmplib.org/download/gmp/gmp-%{version}.tar.bz2
 License: LGPLv3 and GPLv2
 BuildRequires: autoconf automake libtool gcc gcc-c++ perl-Carp
 Summary: A GNU multiple precision arithmetic library
+
+Patch1	:0001-CVE-2021-43618.patch
 
 %description
 GMP is a portable library written in C for arbitrary precision arithmetic
@@ -97,6 +99,9 @@ make %{?_smp_mflags} check
 %{_libdir}/pkgconfig/gmpxx.pc
 
 %changelog
+* Tue Dec 7 2021 zhouwenpei <zhouwenpei1@huawei.com> - 6.2.1-3
+- fix CVE-2021-43618
+
 * Fri Jul 30 2021 chenyanpanHW <chenyanpan@huawei.com> - 6.2.1-2
 - DESC: delete -S git from %autosetup, and delete BuildRequires git
 
