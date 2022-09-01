@@ -1,11 +1,11 @@
 Name: gmp
 Version: 6.2.1
-Release: 1
+Release: 2
 Epoch: 1
 URL: https://gmplib.org
 Source0: https://gmplib.org/download/gmp/gmp-%{version}.tar.bz2
 License: LGPLv3 and GPLv2
-BuildRequires: autoconf automake libtool gcc gcc-c++ git perl-Carp
+BuildRequires: autoconf automake libtool gcc gcc-c++ perl-Carp
 Summary: A GNU multiple precision arithmetic library
 
 %description
@@ -31,7 +31,7 @@ Requires: %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 GMP dependent library for C++ applications.
 
 %prep
-%autosetup -S git
+%autosetup -p1
 
 %build
 autoreconf -ifv
@@ -97,6 +97,9 @@ make %{?_smp_mflags} check
 %{_libdir}/pkgconfig/gmpxx.pc
 
 %changelog
+* Fri Jul 30 2021 chenyanpanHW <chenyanpan@huawei.com> - 6.2.1-2
+- DESC: delete -S git from %autosetup, and delete BuildRequires git
+
 * Sat Jan 30 2021 xinghe <xinghe1@huawei.com> - 1:6.2.1-1
 - Upgrade to 6.2.1
 
