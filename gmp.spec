@@ -1,14 +1,12 @@
 Name: gmp
-Version: 6.2.1
-Release: 3
+Version: 6.3.0
+Release: 1
 Epoch: 1
 URL: https://gmplib.org
-Source0: https://gmplib.org/download/gmp/gmp-%{version}.tar.bz2
+Source0: https://gmplib.org/download/gmp/gmp-%{version}.tar.xz
 License: LGPLv3 and GPLv2
-BuildRequires: autoconf automake libtool gcc gcc-c++ perl-Carp
+BuildRequires: gcc gcc-c++ make m4
 Summary: A GNU multiple precision arithmetic library
-
-Patch1	:0001-CVE-2021-43618.patch
 
 %description
 GMP is a portable library written in C for arbitrary precision arithmetic
@@ -36,7 +34,6 @@ GMP dependent library for C++ applications.
 %autosetup -p1
 
 %build
-autoreconf -ifv
 if as --help | grep -q execstack; then
   export CCAS="gcc -c -Wa,--noexecstack"
 fi
@@ -53,11 +50,11 @@ sed -e 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' \
     -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
     -i libtool
 export LD_LIBRARY_PATH=`pwd`/.libs
-make %{?_smp_mflags}
+%make_build
 
 %install
 export LD_LIBRARY_PATH=`pwd`/.libs
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 install -m 644 gmp-mparam.h ${RPM_BUILD_ROOT}%{_includedir}
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 rm -f $RPM_BUILD_ROOT%{_libdir}/lib{gmp,mp,gmpxx}.la
@@ -71,13 +68,7 @@ basearch=i386
 
 %check
 export LD_LIBRARY_PATH=`pwd`/.libs
-make %{?_smp_mflags} check
-
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
-
-%post c++ -p /sbin/ldconfig
-%postun c++ -p /sbin/ldconfig
+%make_build check
 
 %files
 %{!?_licensedir:%global license %%doc}
@@ -99,10 +90,13 @@ make %{?_smp_mflags} check
 %{_libdir}/pkgconfig/gmpxx.pc
 
 %changelog
-* Tue Dec 7 2021 zhouwenpei <zhouwenpei1@huawei.com> - 6.2.1-3
+* Mon Jul 31 2023 Funda Wang <fundawang@yeah.net> - 1:6.3.0-1
+- New version 6.3.0
+
+* Tue Dec 7 2021 zhouwenpei <zhouwenpei1@huawei.com> - 1:6.2.1-3
 - fix CVE-2021-43618
 
-* Fri Jul 30 2021 chenyanpanHW <chenyanpan@huawei.com> - 6.2.1-2
+* Fri Jul 30 2021 chenyanpanHW <chenyanpan@huawei.com> - 1:6.2.1-2
 - DESC: delete -S git from %autosetup, and delete BuildRequires git
 
 * Sat Jan 30 2021 xinghe <xinghe1@huawei.com> - 1:6.2.1-1
